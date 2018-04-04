@@ -87,6 +87,7 @@ public class Main extends Application {
         window.show();
     }
 
+    //Method for determining the state (Open or Close) of a door
     public static boolean door_state_find(int number_of_door, int number_of_loops, int door_of_interest){
         //Declaring Variables
         int i = 1;
@@ -111,10 +112,10 @@ public class Main extends Application {
 
         //Outputs the state of the door
         if(state_of_door == true){
-            System.out.println(" Door #" +door_of_interest + " would be open");
+            AlertBox.display("Results", " Door #"+door_of_interest + " would be open");
         }
         if(state_of_door == false){
-            System.out.println(" Door #" +door_of_interest + " would be closed");
+            AlertBox.display("Results", " Door #"+door_of_interest + " would be closed");
         }
         return state_of_door;
     }
