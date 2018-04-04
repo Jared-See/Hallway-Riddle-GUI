@@ -1,28 +1,28 @@
-/*import javafx.application.Application;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
+import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.StackPane;
-import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
-public class Main extends Application implements EventHandler<ActionEvent> {
+public class Main extends Application {
     Stage window;
 
+
     public static void main(String[] args) {
-        launch(args); //Launches the "import javafx.application.Application"
+        launch(args);
     }
 
+
+
     @Override
-    public void start(Stage primaryStage) throws Exception { // Main Code for JavaFX goes here
+    public void start(Stage primaryStage) throws Exception {
         window = primaryStage;
-        window.setTitle("Hallway Riddle Solver");
-        //Creates the Grid
+        window.setTitle("Hallway Riddle");
+
+        //GridPane with 10px padding around edge
         GridPane grid = new GridPane();
         grid.setPadding(new Insets(10, 10, 10, 10));
         grid.setVgap(8);
@@ -42,7 +42,7 @@ public class Main extends Application implements EventHandler<ActionEvent> {
         GridPane.setConstraints(doorsLabel, 1,0); //Gives the label a place to appear
 
         //Number of Doors Input
-        TextField doorsInput = new TextField("How many doors are in your hallway"); //Creates the Input Label
+        TextField doorsInput = new TextField(""); //Creates the Input Label
         GridPane.setConstraints(doorsInput, 1,1); //Gives the input label a place to appear
         doorsInput.setPromptText("100");
 
@@ -55,75 +55,67 @@ public class Main extends Application implements EventHandler<ActionEvent> {
         GridPane.setConstraints(doorOfInterestinput, 2,1); //Gives the input label a place to appear
         doorOfInterestinput.setPromptText("98");
 
+        //Button to solve it
         Button solveButton = new Button("Solve");
         GridPane.setConstraints(solveButton, 3, 1);
 
-        //Adds Everything to the Grid
-        grid.getChildren().addAll(loopInput, loopInput, doorOfInterestinput, doorOfInterestLabel, doorsInput, doorsLabel, solveButton);
+        //Button on click
+        solveButton.setOnAction(e -> {
+            //Creates a int variable for the Door Of Interest
+            String doorOfInterest = doorOfInterestinput.getText();
+            int doorOfInterestInt = Integer.parseInt(doorOfInterest);
 
-        Scene scene = new Scene(grid, 300, 200);
-        window.setScene(scene);
-        window.show();
-    }
-}
-*/
+            //Creates a int variable for the number of doors
+            String totalDoor = doorsInput.getText();
+            int totalDoorInt = Integer.parseInt(totalDoor);
 
-import javafx.application.Application;
-import javafx.geometry.Insets;
-import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
-import javafx.scene.layout.GridPane;
-import javafx.stage.Stage;
+            //Creates a int variable for the number of loops
+            String totalLoops = loopInput.getText();
+            int totalLoopsInt = Integer.parseInt(totalLoops);
 
-public class Main extends Application {
-
-    Stage window;
-
-    public static void main(String[] args) {
-        launch(args);
-    }
-
-    @Override
-    public void start(Stage primaryStage) throws Exception {
-        window = primaryStage;
-        window.setTitle("thenewboston - JavaFX");
-
-        //GridPane with 10px padding around edge
-        GridPane grid = new GridPane();
-        grid.setPadding(new Insets(10, 10, 10, 10));
-        grid.setVgap(8);
-        grid.setHgap(10);
-
-        //Name Label - constrains use (child, column, row)
-        Label nameLabel = new Label("Username:");
-        GridPane.setConstraints(nameLabel, 0, 0);
-
-        //Name Input
-        TextField nameInput = new TextField("Bucky");
-        GridPane.setConstraints(nameInput, 1, 0);
-
-        //Password Label
-        Label passLabel = new Label("Password:");
-        GridPane.setConstraints(passLabel, 0, 1);
-
-        //Password Input
-        TextField passInput = new TextField();
-        passInput.setPromptText("password");
-        GridPane.setConstraints(passInput, 1, 1);
-
-        //Login
-        Button loginButton = new Button("Log In");
-        GridPane.setConstraints(loginButton, 1, 2);
+            //Finds the state of the door based on the input variables
+            door_state_find(totalDoorInt, totalLoopsInt, doorOfInterestInt);
+         }
+        );
 
         //Add everything to grid
-        grid.getChildren().addAll(nameLabel, nameInput, passLabel, passInput, loginButton);
+        grid.getChildren().addAll(loopLabel, loopInput, doorsLabel, doorsInput, doorOfInterestLabel, doorOfInterestinput, solveButton);
 
-        Scene scene = new Scene(grid, 300, 200);
+        //Displays everything to the GUI
+        Scene scene = new Scene(grid, 800, 500);
         window.setScene(scene);
         window.show();
     }
 
+    public static boolean door_state_find(int number_of_door, int number_of_loops, int door_of_interest){
+        //Declaring Variables
+        int i = 1;
+        boolean door_checker = true; //Figures out if the door changes state on the loop
+        boolean state_of_door = false; //The door starts out as closed
 
+        while(i <= number_of_loops){ //Simulates someone walking up the hallway for the number of loops
+            //Switches the state of the door when necessary
+            if(door_checker == true){
+                if (state_of_door == false) { state_of_door = true; } //Switches value of door
+                else if (state_of_door == true) { state_of_door = false; } //Switches state of door
+            }
+
+            i++; //Moves onto next loop or walk up the hallway
+
+            if(door_of_interest % i == 0){ //The person interacts with the D.O.I
+                door_checker = true; //You need to change the state of the door
+            }  else {
+                door_checker = false; //Otherwise you don't need to change the state of the door
+            }
+        }
+
+        //Outputs the state of the door
+        if(state_of_door == true){
+            System.out.println(" Door #" +door_of_interest + " would be open");
+        }
+        if(state_of_door == false){
+            System.out.println(" Door #" +door_of_interest + " would be closed");
+        }
+        return state_of_door;
+    }
 }
