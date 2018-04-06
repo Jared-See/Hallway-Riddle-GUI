@@ -59,6 +59,7 @@ public class Main extends Application {
         //Button to solve it
         Button solveButton = new Button("Solve");
         GridPane.setConstraints(solveButton, 3, 1);
+        solveButton.setStyle("-fx-color: #c13232");
 
         //Button on click
         solveButton.setOnAction(e -> {
@@ -89,9 +90,14 @@ public class Main extends Application {
 
         //Displays everything to the GUI
         Scene scene = new Scene(grid, 800, 500);
+        scene.getStylesheets().add("stylesheet.css"); //Allows our custom css stylesheet
         window.setScene(scene);
         window.show();
     }
+
+
+
+
 
     //Method for determining the state (Open or Close) of a door
     public static boolean door_state_find(int number_of_door, int number_of_loops, int door_of_interest){
