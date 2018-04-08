@@ -78,10 +78,15 @@ public class Main extends Application {
             //Check if the total door is less than the door of interest try again
             if (totalDoorInt < doorOfInterestInt){
                 AlertBox.display("Error", "Your Door of Interest is less than the total doors, that doesn't add up. Try Again");
+            }
+            if (totalLoops.isEmpty() || doorOfInterest.equals("") || totalDoor.equals("100")){
+                AlertBox.display("Error", "You need to fill in all of the boxes. Try Again");
             } else {
                 //Finds the state of the door based on the input variables
                 door_state_find(totalDoorInt, totalLoopsInt, doorOfInterestInt);
             }
+
+
          }
         );
 
