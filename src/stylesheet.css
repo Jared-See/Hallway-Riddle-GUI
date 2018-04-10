@@ -10,3 +10,9 @@
 .button{
     -fx-background-radius: 1;
 }
+
+.text-field{
+    fx-border-color: black;
+    fx-border-width: 10px, 10px, 10px, 10px;
+    fx-border-style: stroke;
+}
