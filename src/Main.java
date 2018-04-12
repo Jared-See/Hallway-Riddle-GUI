@@ -63,31 +63,31 @@ public class Main extends Application {
 
         //Button on click
         solveButton.setOnAction(e -> {
-            //Creates a int variable for the Door Of Interest
+            //Creates String Variables for the Text Fields
             String doorOfInterest = doorOfInterestinput.getText();
-            int doorOfInterestInt = Integer.parseInt(doorOfInterest);
-
-            //Creates a int variable for the number of doors
             String totalDoor = doorsInput.getText();
-            int totalDoorInt = Integer.parseInt(totalDoor);
-
-            //Creates a int variable for the number of loops
             String totalLoops = loopInput.getText();
-            int totalLoopsInt = Integer.parseInt(totalLoops);
 
-            //Check if the total door is less than the door of interest try again
-            if (totalDoorInt < doorOfInterestInt){
-                AlertBox.display("Error", "Your Door of Interest is less than the total doors, that doesn't add up. Try Again");
-            }
-            if (totalLoops.isEmpty() || doorOfInterest.equals("") || totalDoor.equals("100")){
+            // Checks to make sure the textfields are filled in
+            if (totalLoops.isEmpty() || doorOfInterest.isEmpty() || totalDoor.isEmpty()){
                 AlertBox.display("Error", "You need to fill in all of the boxes. Try Again");
-            } else {
-                //Finds the state of the door based on the input variables
-                door_state_find(totalDoorInt, totalLoopsInt, doorOfInterestInt);
+            }else{
+                //Creates Int Variables for the Numbers entered into the text field
+                int doorOfInterestInt = Integer.parseInt(doorOfInterest);
+                int totalDoorInt = Integer.parseInt(totalDoor);
+                int totalLoopsInt = Integer.parseInt(totalLoops);
+
+
+                //Check if the total door is less than the door of interest try again
+                if (totalDoorInt < doorOfInterestInt){
+                    AlertBox.display("Error", "Your Door of Interest is less than the total doors, that doesn't add up. Try Again");
+                } else {
+                    //Finds the state of the door based on the input variables
+                    door_state_find(totalDoorInt, totalLoopsInt, doorOfInterestInt);
+                }
+
             }
-
-
-         }
+        }
         );
 
         //Add everything to grid
