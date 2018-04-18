@@ -87,8 +87,7 @@ public class Main extends Application {
                 }
 
             }
-        }
-        );
+        });
 
         //Add everything to grid
         grid.getChildren().addAll(loopLabel, loopInput, doorsLabel, doorsInput, doorOfInterestLabel, doorOfInterestinput, solveButton);
